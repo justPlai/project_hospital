@@ -31,9 +31,16 @@ public class DoctorService {
 	@GET
 	@Path("/doctors")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Doctor> getUsers() {
+	public List<Doctor> getDoctors() {
 
 		return doctorDAO.getAllDoctor();
+	}
+	
+	@GET
+	@Path("/doctors/{param}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Doctor getDoctorById(@PathParam("param") int id) {
+		return doctorDAO.findByID(id);
 	}
 
 	@POST
