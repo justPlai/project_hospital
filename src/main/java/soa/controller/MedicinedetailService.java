@@ -25,25 +25,6 @@ import soa.model.Medicine;
 
 
 
-	public List<Medicinedetail> getUsers() {
-
-		return MedCDao.getAllMedicinedetail();
-	}
-
-	@POST
-	@Path("/medicinedetails/create")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
-
-		boolean i = MedCDao.addMedicinedetail(MedcDao);
-		if (i == true)
-			return Response.status(201).entity(" create successfully").build();
-		else
-			return Response.status(201).entity(" create fail").build();
-
-	}
-
-
 	@Path("/services")
 	public class MedicinedetailService { 
 		

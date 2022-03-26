@@ -34,10 +34,21 @@ public class HospitalService {
 	@Path("/hospitals")
 	@Produces(MediaType.APPLICATION_JSON)
 
-	public List<Hospital> getUsers() {
+	  public Response getUsers() throws JsonGenerationException, 
+			JsonMappingException, IOException { 
+			
+		      //return hospitalDAO.getAllHospital();
+		      
+		      HospitalResponse responsePojo = new HospitalResponse();
+		      		responsePojo.setStatus("200");
+		      		responsePojo.setMsg("ok");
+					//ObjectMapper a = new ObjectMapper();
+					
+					//String s = a.writeValueAsString(hospitalDAO.getAllHospital());
+					responsePojo.setResult(hospitalDAO.getAllHospital());
+					return Response.status(200).entity(responsePojo).build();
+		} 
 
-		return hospitalDAO.getAllHospital();
-	}
 	
 	@GET
 	@Path("/hospitals/{param}")
@@ -45,22 +56,6 @@ public class HospitalService {
 	public Hospital getDoctorById(@PathParam("param") int id) {
 		return hospitalDAO.findByID(id);
 	}
-
-	   public Response getUsers() throws JsonGenerationException, 
-		JsonMappingException, IOException { 
-		
-	      //return HosDao.getAllHospital();
-	      
-	      HospitalResponse responsePojo = new HospitalResponse();
-	      		responsePojo.setStatus("200");
-	      		responsePojo.setMsg("ok");
-				//ObjectMapper a = new ObjectMapper();
-				
-				//String s = a.writeValueAsString(HosDao.getAllHospital());
-				responsePojo.setResult(HosDao.getAllHospital());
-				return Response.status(200).entity(responsePojo).build();
-	} 
-
 	   	
 	   @POST
 		@Path("/hospitals")
@@ -81,7 +76,7 @@ public class HospitalService {
 	   		}
 	   		else
 	   		{
-			boolean i = HosDao.addHospital(Hos);
+			boolean i = hospitalDAO.addHospital(Hos);
 			if (i == true) {
 				CommonResponse responsePojo = new CommonResponse();
 				responsePojo.setStatus("201");
@@ -102,13 +97,13 @@ public class HospitalService {
 		public Response updateHospital(Hospital Hos) throws  JsonGenerationException, 
 		JsonMappingException, IOException 
 	   	{	
-	   		Hospital h =  HosDao.findByID(Hos.getHospitalId()) ;
+	   		Hospital h =  hospitalDAO.findByID(Hos.getHospitalId()) ;
 	   		if(h==null)
 	   		{
 	   			return Response.status(401).entity(" Invalid Hospital id").build();
 	   		}
 	   		else {
-			boolean i = HosDao.updateHospital(Hos);
+			boolean i = hospitalDAO.updateHospital(Hos);
 			if (i == true)
 				return Response.status(200).entity(" update successfully").build();
 			else
@@ -122,14 +117,14 @@ public class HospitalService {
 		public Response updateHospitalByid(@PathParam("id") int id,Hospital Hos) throws  JsonGenerationException, 
 		JsonMappingException, IOException 
 		{	
-	 		Hospital h =  HosDao.findByID(id) ;
+	 		Hospital h =  hospitalDAO.findByID(id) ;
 			if(h==null)
 			{
 				return Response.status(401).entity(" Invalid Hospital id").build();
 			}
 			else {
 			Hos.setHospitalId(id);
-			boolean i = HosDao.updateHospital(Hos);
+			boolean i = hospitalDAO.updateHospital(Hos);
 			if (i == true)
 					return Response.status(200).entity(" update successfully").build();
 			else
@@ -145,13 +140,13 @@ public class HospitalService {
 		public Response deleteHospital(@PathParam("id") int id) throws  JsonGenerationException, 
 		JsonMappingException, IOException 
 	   	{	
-			Hospital h =  HosDao.findByID(id) ;
+			Hospital h =  hospitalDAO.findByID(id) ;
 			if(h==null)
 			{
 				return Response.status(401).entity(" Invalid Hospital id").build();
 			}
 			else {
-			boolean i = HosDao.DeleteByID(id);
+			boolean i = hospitalDAO.DeleteByID(id);
 			if (i == true)
 				return Response.status(200).entity(" delete successfully").build();
 			else

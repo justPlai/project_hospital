@@ -11,25 +11,7 @@ import soa.model.Hospital;
 
 import org.hibernate.Query;
 
-public class DoctorDAO {
-
-	public ArrayList<Doctor> getAllDoctor() {
-		Session session = SessionUtil.getSession();
-		Query query = session.createQuery("from Doctor");
-		ArrayList<Doctor> doctor = (ArrayList<Doctor>) query.list();
-		session.close();
-		return doctor;
-	}
-
-	public Doctor findByID(int id) {
-
-		Session session = SessionUtil.getSession();
-		Query query = session.createQuery("from Doctor where doctorId =" + id);
-		ArrayList<Doctor> doc = (ArrayList<Doctor>) query.list();
-		session.close();
-
-		return doc.get(0);
-
+		
 public class DoctorDAO {
 	
 	public ArrayList<Doctor> getAllDoctor(){
@@ -55,7 +37,7 @@ public class DoctorDAO {
 		}
 
 	}
-	public boolean addDoctor(Doctor h) {
+	public boolean addDoctor(Doctor doc) {
 
 		try {
 			Session session = SessionUtil.getSession();
@@ -86,7 +68,7 @@ public class DoctorDAO {
 
 			Transaction tx = session.beginTransaction();
 
-			session.saveOrUpdate(doc);
+			session.saveOrUpdate(d);
 
 			tx.commit();
 
