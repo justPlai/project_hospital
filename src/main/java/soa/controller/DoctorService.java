@@ -78,7 +78,7 @@ public class DoctorService {
 	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createDoctor(Doctor doc) throws IOException {
-
+		Hospital h = hospitalDAO.findByID(doc.getHospital().getHospitalId());
 		/*
 		 * System.out.println(doc.getDoctorFirstname());
 		 * System.out.println(doc.getHospital().getHospitalId()); HospitalDAO hostDAO =
@@ -104,7 +104,10 @@ public class DoctorService {
 			return Response.status(401).entity(" please provide Phonenumber").build();
 		} else if (doc.getHospital() == null) {
 			return Response.status(401).entity(" please provide Hospital").build();
-		} else {
+		}else if(h==null) {
+			return Response.status(401).entity(" Invalid Hospital id").build();
+		}
+		else {
 			boolean i = DoctorDao.addDoctor(doc);
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();

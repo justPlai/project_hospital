@@ -70,7 +70,9 @@ public class MedicinedetailService {
 	@Path("/medicinedetails")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
-
+		Doctor d = DoctorDao.findById(MedcDao.getDoctor().getDoctorId());
+		Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
+		
 		if (MedcDao.getDoctor() == null) {
 			return Response.status(401).entity(" please provide Doctor").build();
 		} else if (MedcDao.getMedicine() == null) {
@@ -79,7 +81,15 @@ public class MedicinedetailService {
 			return Response.status(401).entity(" please provide TotalPrice").build();
 		} else if (MedcDao.getMedicineAmount() == 0) {
 			return Response.status(401).entity(" please provide Amount").build();
-		} else {
+		}else if(d==null)
+		{
+			return Response.status(401).entity(" Invalid doctor id").build();
+		}
+		else if(Med==null)
+		{
+			return Response.status(401).entity(" Invalid Medicine id").build();			
+		}
+			else {
 			boolean i = MedCDao.addMedicinedetail(MedcDao);
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
