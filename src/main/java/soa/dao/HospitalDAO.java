@@ -11,7 +11,8 @@ import soa.model.Doctor;
 import soa.model.Hospital;
 
 public class HospitalDAO {
-
+	
+	
 	public ArrayList<Hospital> getAllHospital() {
 		Session session = SessionUtil.getSession();
 		Query query = session.createQuery("from Hospital");
@@ -41,11 +42,8 @@ public class HospitalDAO {
 		try {
 		Session session = SessionUtil.getSession();
 		Transaction tx = session.beginTransaction();
-
-		Query query = session.createQuery("delete from Hospital where hospitalId =" + id);
-		int result = query.executeUpdate();
-		//ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
-		
+		Hospital h = findByID(id);
+		session.delete(h);
 
 		tx.commit();
 		session.close();
