@@ -30,7 +30,7 @@ public class HospitalDAO {
 
 	}
 
-	public boolean addHospital(Hospital h) {
+	public boolean addHospital(Hospital hos) {
 
 		try {
 			Session session = SessionUtil.getSession();
@@ -39,7 +39,7 @@ public class HospitalDAO {
 
 			// tx.begin();
 
-			session.save(h);
+			session.save(hos);
 
 			tx.commit();
 
