@@ -21,7 +21,7 @@ public class DoctorDAO {
 		return doctor;
 	}
 
-	public Doctor findByID(int id) {
+	public Doctor findById(int id) {
 
 		Session session = SessionUtil.getSession();
 		Query query = session.createQuery("from Doctor where doctorId =" + id);
@@ -100,7 +100,7 @@ public class DoctorDAO {
 		return true;
 	}
 
-	public boolean DeleteByID(int id) {
+	public boolean deleteByID(int id) {
 		try {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();

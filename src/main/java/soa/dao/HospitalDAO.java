@@ -34,7 +34,7 @@ public class HospitalDAO {
 
 	}
 
-	public boolean DeleteByID(int id) {
+	public boolean deleteById(int id) {
 		try {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();
