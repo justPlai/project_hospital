@@ -20,7 +20,7 @@ public class DoctorDAO {
 		session.close();
 		return doctor;
 	}
-	
+
 	public Doctor findByID(int id) {
 
 		Session session = SessionUtil.getSession();
@@ -77,7 +77,7 @@ public class DoctorDAO {
 	}
 
 	public boolean delete(Doctor doc) {
-		
+
 		try {
 			Session session = SessionUtil.getSession();
 
