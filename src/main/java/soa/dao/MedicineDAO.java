@@ -85,7 +85,7 @@ public class MedicineDAO {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();
 
-			Query query = session.createQuery("delete from Medicine where medecineId =" + id);
+			Query query = session.createQuery("delete from Medicine where medicineId =" + id);
 			int result = query.executeUpdate();
 			// ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
 

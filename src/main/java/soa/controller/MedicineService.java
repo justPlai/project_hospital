@@ -22,6 +22,11 @@ import soa.dao.MedicineDAO;
 import soa.model.Doctor;
 import soa.model.Hospital;
 import soa.model.Medicine;
+import soa.model.Medicinedetail;
+import soa.response.MedicineResponse;
+import soa.responsebyid.MedicineIdResponse;
+import soa.responsebyid.MedicinedetailIdResponse;
+
 
 @Path("/services")
 
@@ -32,11 +37,32 @@ public class MedicineService {
 	@GET
 	@Path("/medicines")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Medicine> getUsers() {
-
-		return MedDao.getAllMedicine();
+	public Response getUsers() throws JsonGenerationException, JsonMappingException, IOException {
+		MedicineResponse responsePojo = new MedicineResponse();
+		responsePojo.setStatus("200");
+		responsePojo.setMsg("ok");
+		
+		responsePojo.setResult(MedDao.getAllMedicine());
+		return Response.status(200).entity(responsePojo).build();
 	}
-
+	@GET
+	@Path("/medicines/{param}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDoctorById(@PathParam("param") int id) {
+		Medicine M = MedDao.findById(id);
+		if(M==null)
+		{
+			return Response.status(401).entity(" Invalid Medicine id").build();
+		}
+		else
+		{
+			MedicineIdResponse responsePojo = new MedicineIdResponse();
+			responsePojo.setStatus("200");
+			responsePojo.setMsg("ok");
+			responsePojo.setResult(MedDao.findById(id));
+			return Response.status(200).entity(responsePojo).build();
+		}
+	}
 	@POST
 	@Path("/medicines")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -62,13 +88,18 @@ public class MedicineService {
 	@PUT
 	@Path("/medicines")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateMedicine(Medicine Doctor) throws JsonGenerationException, JsonMappingException, IOException {
-
-		boolean i = MedDao.updateMedicine(Doctor);
+	public Response updateMedicine(Medicine medicine) throws JsonGenerationException, JsonMappingException, IOException {
+		Medicine M = MedDao.findById(medicine.getMedicineId());
+		if (M == null) {
+			return Response.status(401).entity(" Invalid Medicine id").build();
+		}
+		else {
+		boolean i = MedDao.updateMedicine(medicine);
 		if (i == true)
 			return Response.status(201).entity(" update successfully").build();
 		else
 			return Response.status(201).entity(" update fail").build();
+		}
 
 	}
 
@@ -77,12 +108,17 @@ public class MedicineService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteMedicine(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
-
+		Medicine M = MedDao.findById(id);
+		if (M == null) {
+			return Response.status(401).entity(" Invalid Medicine id").build();
+		}
+		else {
 		boolean i = MedDao.deleteById(id);
 		if (i == true)
 			return Response.status(201).entity(" delete successfully").build();
 		else
 			return Response.status(201).entity(" delete fail").build();
+		}
 
 	}
 }

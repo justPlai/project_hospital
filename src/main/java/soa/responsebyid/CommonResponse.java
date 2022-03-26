@@ -1,4 +1,4 @@
-package soa.response;
+package soa.responsebyid;
 
 public class CommonResponse {
 
@@ -8,27 +8,27 @@ public class CommonResponse {
 
 	private String msg;
 
-	public String getStatus2() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus2(String status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getResult2() {
+	public String getResult() {
 		return result;
 	}
 
-	public void setResult2(String result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 
-	public String getMsg2() {
+	public String getMsg() {
 		return msg;
 	}
 
-	public void setMsg2(String msg) {
+	public void setMsg(String msg) {
 		this.msg = msg;
 	}
 }
