@@ -1,9 +1,11 @@
 package soa.controller;
 
+
 import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,8 +15,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import soa.dao.HospitalDAO;
 import soa.model.Hospital;
+import soa.response.CommonResponse;
+import soa.response.HospitalResponse;
 
 
 
@@ -26,21 +34,117 @@ import soa.model.Hospital;
 	   @Path("/hospitals") 
 	   @Produces(MediaType.APPLICATION_JSON) 
 
-	   public List<Hospital> getUsers(){ 
+	   public Response getUsers() throws JsonGenerationException, 
+		JsonMappingException, IOException { 
 		
-	      return HosDao.getAllHospital();
-	      }  
+	      //return HosDao.getAllHospital();
+	      
+	      HospitalResponse responsePojo = new HospitalResponse();
+	      		responsePojo.setStatus("200");
+	      		responsePojo.setMsg("ok");
+				//ObjectMapper a = new ObjectMapper();
+				
+				//String s = a.writeValueAsString(HosDao.getAllHospital());
+				responsePojo.setResult(HosDao.getAllHospital());
+				return Response.status(200).entity(responsePojo).build();
+	} 
+
 	   	
-	   	@POST
-		@Path("/hospitals/create")
+	   @POST
+		@Path("/hospitals")
 		@Consumes(MediaType.APPLICATION_JSON)
 		public Response createHospital(Hospital Hos) throws IOException {
 
+	   		if(Hos.getHospitalLocation()==null)
+	   		{
+	   			return Response.status(400).entity(" please provide Location").build();
+	   		}
+	   		else if(Hos.getHospitalName()==null)
+	   		{
+	   			return Response.status(400).entity(" please provide Name").build();
+	   		}
+	   		else if(Hos.getHospitalPhonenumber()==null)
+	   		{
+	   			return Response.status(400).entity(" please provide Phonenumber").build();
+	   		}
+	   		else
+	   		{
 			boolean i = HosDao.addHospital(Hos);
-			if (i == true)
-				return Response.status(201).entity(" create successfully").build();
+			if (i == true) {
+				CommonResponse responsePojo = new CommonResponse();
+				responsePojo.setStatus("201");
+				responsePojo.setMsg("ok");
+				responsePojo.setResult("create successfully");
+
+				return Response.status(201).entity(responsePojo).build();
+				//return Response.status(201).entity(" create successfully").build();
+			}
 			else
 				return Response.status(201).entity(" create fail").build();
+	   		}
+		}
+	   
+	   	@PUT
+		@Path("/hospitals")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response updateHospital(Hospital Hos) throws  JsonGenerationException, 
+		JsonMappingException, IOException 
+	   	{	
+	   		Hospital h =  HosDao.findByID(Hos.getHospitalId()) ;
+	   		if(h==null)
+	   		{
+	   			return Response.status(401).entity(" Invalid Hospital id").build();
+	   		}
+	   		else {
+			boolean i = HosDao.updateHospital(Hos);
+			if (i == true)
+				return Response.status(200).entity(" update successfully").build();
+			else
+				return Response.status(200).entity(" update fail").build();
+	   		}
+		}
+	   	
+	 	@PUT
+		@Path("/hospitals/{id}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response updateHospitalByid(@PathParam("id") int id,Hospital Hos) throws  JsonGenerationException, 
+		JsonMappingException, IOException 
+		{	
+	 		Hospital h =  HosDao.findByID(id) ;
+			if(h==null)
+			{
+				return Response.status(401).entity(" Invalid Hospital id").build();
+			}
+			else {
+			Hos.setHospitalId(id);
+			boolean i = HosDao.updateHospital(Hos);
+			if (i == true)
+					return Response.status(200).entity(" update successfully").build();
+			else
+					return Response.status(200).entity(" update fail").build();
+			}
+				
+		}
+	   	
+	   
+	   	@DELETE
+		@Path("/hospitals/{id}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response deleteHospital(@PathParam("id") int id) throws  JsonGenerationException, 
+		JsonMappingException, IOException 
+	   	{	
+			Hospital h =  HosDao.findByID(id) ;
+			if(h==null)
+			{
+				return Response.status(401).entity(" Invalid Hospital id").build();
+			}
+			else {
+			boolean i = HosDao.DeleteByID(id);
+			if (i == true)
+				return Response.status(200).entity(" delete successfully").build();
+			else
+				return Response.status(200).entity(" delete fail").build();
+			}
 			
 		}
 	   	

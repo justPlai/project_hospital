@@ -1,5 +1,5 @@
 package soa.model;
-// Generated Mar 26, 2022, 5:09:20 PM by Hibernate Tools 5.6.3.Final
+// Generated Mar 26, 2022, 9:28:10 PM by Hibernate Tools 5.5.7.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +16,7 @@ public class Doctor implements java.io.Serializable {
 	private String doctorFirstname;
 	private String doctorLastname;
 	private String doctorPhonenumber;
+	
 	@JsonIgnore
 	private Set medicinedetails = new HashSet(0);
 
