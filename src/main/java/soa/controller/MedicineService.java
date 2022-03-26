@@ -46,9 +46,9 @@ public class MedicineService {
 		return Response.status(200).entity(responsePojo).build();
 	}
 	@GET
-	@Path("/medicines/{param}")
+	@Path("/medicines/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDoctorById(@PathParam("param") int id) {
+	public Response getDoctorById(@PathParam("id") int id) {
 		Medicine M = MedDao.findById(id);
 		if(M==null)
 		{

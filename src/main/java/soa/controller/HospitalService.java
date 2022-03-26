@@ -48,9 +48,9 @@ public class HospitalService {
 	}
 
 	@GET
-	@Path("/hospitals/{param}")
+	@Path("/hospitals/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDoctorById(@PathParam("param") int id) {
+	public Response getDoctorById(@PathParam("id") int id) {
 		Hospital h = hospitalDAO.findByID(id);
 		if(h==null)
 		{

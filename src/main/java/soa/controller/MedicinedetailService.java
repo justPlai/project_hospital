@@ -49,9 +49,9 @@ public class MedicinedetailService {
 		//return MedCDao.getAllMedicinedetail();
 	}
 	@GET
-	@Path("/medicinedetails/{param}")
+	@Path("/medicinedetails/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDoctorById(@PathParam("param") int id) {
+	public Response getDoctorById(@PathParam("id") int id) {
 		Medicinedetail M = MedCDao.findById(id);
 		if(M==null)
 		{
