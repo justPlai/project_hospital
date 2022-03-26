@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Medicinedetail implements java.io.Serializable {
 
 	private Integer medicineDetailId;
-	@JsonIgnore
 	private Doctor doctor;
-	@JsonIgnore
 	private Medicine medicine;
 	private int medicineAmount;
 	private Double medicineTotalPrice;
