@@ -20,7 +20,28 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import soa.dao.MedicinedetailDAO;
 import soa.model.Medicinedetail;
+
 import soa.model.Medicine;
+
+
+
+	public List<Medicinedetail> getUsers() {
+
+		return MedCDao.getAllMedicinedetail();
+	}
+
+	@POST
+	@Path("/medicinedetails/create")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
+
+		boolean i = MedCDao.addMedicinedetail(MedcDao);
+		if (i == true)
+			return Response.status(201).entity(" create successfully").build();
+		else
+			return Response.status(201).entity(" create fail").build();
+
+	}
 
 
 	@Path("/services")
@@ -96,4 +117,5 @@ import soa.model.Medicine;
 					return Response.status(201).entity(" delete fail").build();
 				
 			}
+
 }

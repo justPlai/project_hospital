@@ -1,7 +1,6 @@
 package soa.controller;
 
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -26,6 +25,7 @@ import soa.model.Hospital;
 import soa.model.Medicine;
 
 @Path("/services")
+
 public class MedicineService { 
 	
 	MedicineDAO MedDao = new MedicineDAO();  
@@ -40,6 +40,7 @@ public class MedicineService {
    	
    	@POST
 	@Path("/medicines")
+
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createMedicine(Medicine Med) throws IOException {
    		
@@ -64,7 +65,7 @@ public class MedicineService {
 			return Response.status(201).entity(" create successfully").build();
 		else
 			return Response.status(201).entity(" create fail").build();
-		
+
 	}
  	@PUT
 	@Path("/medicines")

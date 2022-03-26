@@ -59,7 +59,7 @@ public class HospitalDAO {
 
 	}
 
-	public boolean addHospital(Hospital h) {
+	public boolean addHospital(Hospital hos) {
 
 		try {
 			Session session = SessionUtil.getSession();
@@ -68,7 +68,47 @@ public class HospitalDAO {
 
 			// tx.begin();
 
-			session.save(h);
+			session.save(hos);
+
+			tx.commit();
+
+			session.close();
+		} catch (TransactionException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+		return true;
+	}
+
+	public boolean update(Hospital hos) {
+		try {
+			Session session = SessionUtil.getSession();
+
+			Transaction tx = session.beginTransaction();
+
+			session.saveOrUpdate(hos);
+
+			tx.commit();
+
+			session.close();
+		} catch (TransactionException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+		return true;
+	}
+
+	public boolean delete(Hospital hos) {
+		try {
+			Session session = SessionUtil.getSession();
+
+			Transaction tx = session.beginTransaction();
+
+			session.delete(hos);
 
 			tx.commit();
 

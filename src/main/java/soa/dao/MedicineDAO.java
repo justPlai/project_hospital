@@ -1,6 +1,5 @@
 package soa.dao;
 
-
 import java.util.ArrayList;
 
 import org.hibernate.Session;
@@ -12,14 +11,14 @@ import soa.model.Hospital;
 import soa.model.Medicine;
 
 public class MedicineDAO {
-	
-	public ArrayList<Medicine> getAllMedicine(){
-		 Session session = SessionUtil.getSession(); 
-		 Query query = session.createQuery("from Medicine");
-		 ArrayList<Medicine> medicine =  (ArrayList<Medicine>) query.list();
-		 session.close();
-		 return medicine ;
-	}	
+
+	public ArrayList<Medicine> getAllMedicine() {
+		Session session = SessionUtil.getSession();
+		Query query = session.createQuery("from Medicine");
+		ArrayList<Medicine> medicine = (ArrayList<Medicine>) query.list();
+		session.close();
+		return medicine;
+	}
 
 	public boolean addMedicine(Medicine h) {
 
@@ -28,7 +27,7 @@ public class MedicineDAO {
 
 			Transaction tx = session.beginTransaction();
 
-			//tx.begin();
+			// tx.begin();
 
 			session.save(h);
 
@@ -38,10 +37,11 @@ public class MedicineDAO {
 		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
-		
+
 		}
 
 		return true;
+
 	} 
 	public boolean updateMedicine(Medicine M) {
 

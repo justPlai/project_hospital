@@ -20,19 +20,31 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import soa.dao.HospitalDAO;
+import soa.model.Doctor;
 import soa.model.Hospital;
 import soa.response.CommonResponse;
 import soa.response.HospitalResponse;
 
+@Path("/services")
+public class HospitalService {
 
+	HospitalDAO hospitalDAO = new HospitalDAO();
 
-	@Path("/services")
-	public class HospitalService { 
-		
-	   HospitalDAO HosDao = new HospitalDAO();  
-	   @GET 
-	   @Path("/hospitals") 
-	   @Produces(MediaType.APPLICATION_JSON) 
+	@GET
+	@Path("/hospitals")
+	@Produces(MediaType.APPLICATION_JSON)
+
+	public List<Hospital> getUsers() {
+
+		return hospitalDAO.getAllHospital();
+	}
+	
+	@GET
+	@Path("/hospitals/{param}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Hospital getDoctorById(@PathParam("param") int id) {
+		return hospitalDAO.findByID(id);
+	}
 
 	   public Response getUsers() throws JsonGenerationException, 
 		JsonMappingException, IOException { 
