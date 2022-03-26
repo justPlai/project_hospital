@@ -67,7 +67,7 @@ public class DoctorService {
 	}
 
 	@PUT
-	@Path("/doctors/ss")
+	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor doc) throws IOException {
 		boolean i = doctorDAO.update(doc);
@@ -75,7 +75,7 @@ public class DoctorService {
 			return Response.status(201).entity(" create successfully").build();
 		else
 			return Response.status(201).entity(" create fail").build();
-
+		
 	}
 
 }

@@ -21,7 +21,7 @@ public class DoctorDAO {
 		 ArrayList<Doctor> doctor =  (ArrayList<Doctor>) query.list();
 		 session.close();
 		 return doctor ;
-	}	
+	}
 
 	public boolean addDoctor(Doctor h) {
 
