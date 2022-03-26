@@ -16,32 +16,31 @@ import javax.ws.rs.core.Response;
 import soa.dao.HospitalDAO;
 import soa.model.Hospital;
 
+@Path("/services")
+public class HospitalService {
 
+	HospitalDAO HosDao = new HospitalDAO();
 
-	@Path("/services")
-	public class HospitalService { 
-		
-	   HospitalDAO HosDao = new HospitalDAO();  
-	   @GET 
-	   @Path("/hospitals") 
-	   @Produces(MediaType.APPLICATION_JSON) 
+	@GET
+	@Path("/hospitals")
+	@Produces(MediaType.APPLICATION_JSON)
 
-	   public List<Hospital> getUsers(){ 
-		
-	      return HosDao.getAllHospital();
-	      }  
-	   	
-	   	@POST
-		@Path("/hospitals/create")
-		@Consumes(MediaType.APPLICATION_JSON)
-		public Response createHospital(Hospital Hos) throws IOException {
+	public List<Hospital> getUsers() {
 
-			boolean i = HosDao.addHospital(Hos);
-			if (i == true)
-				return Response.status(201).entity(" create successfully").build();
-			else
-				return Response.status(201).entity(" create fail").build();
-			
-		}
-	   	
+		return HosDao.getAllHospital();
+	}
+
+	@POST
+	@Path("/hospitals/create")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createHospital(Hospital Hos) throws IOException {
+
+		boolean i = HosDao.addHospital(Hos);
+		if (i == true)
+			return Response.status(201).entity(" create successfully").build();
+		else
+			return Response.status(201).entity(" create fail").build();
+
+	}
+
 }

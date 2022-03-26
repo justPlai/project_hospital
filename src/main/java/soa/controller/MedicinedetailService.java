@@ -16,34 +16,31 @@ import javax.ws.rs.core.Response;
 import soa.dao.MedicinedetailDAO;
 import soa.model.Medicinedetail;
 
+@Path("/services")
+public class MedicinedetailService {
 
+	MedicinedetailDAO MedCDao = new MedicinedetailDAO();
 
+	@GET
+	@Path("/medicinedetails")
+	@Produces(MediaType.APPLICATION_JSON)
 
+	public List<Medicinedetail> getUsers() {
 
-	@Path("/services")
-	public class MedicinedetailService { 
-		
-		MedicinedetailDAO MedCDao = new MedicinedetailDAO();  
-	   @GET 
-	   @Path("/medicinedetails") 
-	   @Produces(MediaType.APPLICATION_JSON) 
+		return MedCDao.getAllMedicinedetail();
+	}
 
-	   public List<Medicinedetail> getUsers(){ 
-		
-	      return MedCDao.getAllMedicinedetail();
-	      }  
-	   	
-	   	@POST
-		@Path("/medicinedetails/create")
-		@Consumes(MediaType.APPLICATION_JSON)
-		public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
+	@POST
+	@Path("/medicinedetails/create")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
 
-			boolean i = MedCDao.addMedicinedetail(MedcDao);
-			if (i == true)
-				return Response.status(201).entity(" create successfully").build();
-			else
-				return Response.status(201).entity(" create fail").build();
-			
-		}
-	   	
+		boolean i = MedCDao.addMedicinedetail(MedcDao);
+		if (i == true)
+			return Response.status(201).entity(" create successfully").build();
+		else
+			return Response.status(201).entity(" create fail").build();
+
+	}
+
 }
