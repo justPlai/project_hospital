@@ -30,7 +30,6 @@ public class MedicinedetailService {
 	@GET
 	@Path("/Medicinedetails")
 	@Produces(MediaType.APPLICATION_JSON)
-
 	public List<Medicinedetail> getUsers() {
 
 		return MedCDao.getAllMedicinedetail();

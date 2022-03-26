@@ -32,7 +32,6 @@ public class HospitalService {
 	@GET
 	@Path("/hospitals")
 	@Produces(MediaType.APPLICATION_JSON)
-
 	public Response getUsers() throws JsonGenerationException, JsonMappingException, IOException {
 
 		// return hospitalDAO.getAllHospital();
@@ -96,24 +95,24 @@ public class HospitalService {
 		}
 	}
 
-	@PUT
-	@Path("/hospitals/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateHospitalByid(@PathParam("id") int id, Hospital Hos)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		Hospital h = hospitalDAO.findByID(id);
-		if (h == null) {
-			return Response.status(401).entity(" Invalid Hospital id").build();
-		} else {
-			Hos.setHospitalId(id);
-			boolean i = hospitalDAO.updateHospital(Hos);
-			if (i == true)
-				return Response.status(200).entity(" update successfully").build();
-			else
-				return Response.status(200).entity(" update fail").build();
-		}
-
-	}
+//	@PUT
+//	@Path("/hospitals/{id}")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response updateHospitalByid(@PathParam("id") int id, Hospital Hos)
+//			throws JsonGenerationException, JsonMappingException, IOException {
+//		Hospital h = hospitalDAO.findByID(id);
+//		if (h == null) {
+//			return Response.status(401).entity(" Invalid Hospital id").build();
+//		} else {
+//			Hos.setHospitalId(id);
+//			boolean i = hospitalDAO.updateHospital(Hos);
+//			if (i == true)
+//				return Response.status(200).entity(" update successfully").build();
+//			else
+//				return Response.status(200).entity(" update fail").build();
+//		}
+//
+//	}
 
 	@DELETE
 	@Path("/hospitals/{id}")

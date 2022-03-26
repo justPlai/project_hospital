@@ -32,7 +32,6 @@ public class MedicineService {
 	@GET
 	@Path("/medicines")
 	@Produces(MediaType.APPLICATION_JSON)
-
 	public List<Medicine> getUsers() {
 
 		return MedDao.getAllMedicine();
@@ -40,7 +39,6 @@ public class MedicineService {
 
 	@POST
 	@Path("/medicines")
-
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createMedicine(Medicine Med) throws IOException {
 

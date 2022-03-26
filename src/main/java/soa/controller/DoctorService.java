@@ -35,7 +35,6 @@ public class DoctorService {
 	@GET
 	@Path("/doctors")
 	@Produces(MediaType.APPLICATION_JSON)
-
 	public Response getUsers() throws JsonGenerationException, JsonMappingException, IOException {
 
 		// return DoctorDao.getAllDoctor();
