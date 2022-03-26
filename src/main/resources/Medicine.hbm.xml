@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 26, 2022, 5:09:21 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="soa_hospital" name="soa.model.Medicine" optimistic-lock="none" table="medicine">
+        <id name="medicineId" type="java.lang.Integer">
+            <column name="medicine_id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="medicineEnglish" type="string">
+            <column length="50" name="medicine_english" not-null="true"/>
+        </property>
+        <property name="medicineThai" type="string">
+            <column length="50" name="medicine_thai" not-null="true"/>
+        </property>
+        <property name="medicinePrice" type="java.lang.Float">
+            <column name="medicine_price" precision="12" scale="0"/>
+        </property>
+        <property name="medicineDescription" type="string">
+            <column name="medicine_description"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="false" name="medicinedetails" table="medicinedetail">
+            <key>
+                <column name="medicine_id" not-null="true"/>
+            </key>
+            <one-to-many class="soa.model.Medicinedetail"/>
+        </set>
+    </class>
+</hibernate-mapping>
