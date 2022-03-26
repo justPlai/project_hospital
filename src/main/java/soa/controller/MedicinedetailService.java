@@ -74,13 +74,13 @@ public class MedicinedetailService {
 		Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
 		
 		if (MedcDao.getDoctor() == null) {
-			return Response.status(401).entity(" please provide Doctor").build();
+			return Response.status(400).entity(" please provide Doctor").build();
 		} else if (MedcDao.getMedicine() == null) {
-			return Response.status(401).entity(" please provide Medicine").build();
+			return Response.status(400).entity(" please provide Medicine").build();
 		} else if (MedcDao.getMedicineTotalPrice() == null) {
-			return Response.status(401).entity(" please provide TotalPrice").build();
+			return Response.status(400).entity(" please provide TotalPrice").build();
 		} else if (MedcDao.getMedicineAmount() == 0) {
-			return Response.status(401).entity(" please provide Amount").build();
+			return Response.status(400).entity(" please provide Amount").build();
 		}else if(d==null)
 		{
 			return Response.status(401).entity(" Invalid doctor id").build();

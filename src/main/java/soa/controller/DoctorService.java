@@ -97,13 +97,13 @@ public class DoctorService {
 		 * Session ss = SessionUtil.getSession() ; ss.saveOrUpdate(h); ss.close();
 		 */
 		if (doc.getDoctorFirstname() == null) {
-			return Response.status(401).entity(" please provide Firstname").build();
+			return Response.status(400).entity(" please provide Firstname").build();
 		} else if (doc.getDoctorLastname() == null) {
-			return Response.status(401).entity(" please provide Lastname").build();
+			return Response.status(400).entity(" please provide Lastname").build();
 		} else if (doc.getDoctorPhonenumber() == null) {
-			return Response.status(401).entity(" please provide Phonenumber").build();
+			return Response.status(400).entity(" please provide Phonenumber").build();
 		} else if (doc.getHospital() == null) {
-			return Response.status(401).entity(" please provide Hospital").build();
+			return Response.status(400).entity(" please provide Hospital").build();
 		}else if(h==null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		}
@@ -123,12 +123,12 @@ public class DoctorService {
 		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
 		if(D==null)
 		{
-			return Response.status(201).entity(" Invalid Doctor id").build();
+			return Response.status(401).entity(" Invalid Doctor id").build();
 		}
 		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
 		if(h==null)
 		{
-			return Response.status(201).entity(" Invalid Hospital id").build();
+			return Response.status(401).entity(" Invalid Hospital id").build();
 		}
 		boolean i = DoctorDao.updateDoctor(Doctor);
 		if (i == true)
@@ -146,7 +146,7 @@ public class DoctorService {
 		Doctor D = DoctorDao.findById(id);
 		if(D==null)
 		{
-			return Response.status(201).entity(" Invalid Doctor id").build();
+			return Response.status(401).entity(" Invalid Doctor id").build();
 		}
 		boolean i = DoctorDao.deleteById(id);
 		if (i == true)

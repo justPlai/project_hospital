@@ -69,11 +69,11 @@ public class MedicineService {
 	public Response createMedicine(Medicine Med) throws IOException {
 
 		if (Med.getMedicineDescription() == null) {
-			return Response.status(401).entity(" please provide Description").build();
+			return Response.status(400).entity(" please provide Description").build();
 		} else if (Med.getMedicineEnglish() == null) {
-			return Response.status(401).entity(" please provide medicine name in English").build();
+			return Response.status(400).entity(" please provide medicine name in English").build();
 		} else if (Med.getMedicineThai() == null) {
-			return Response.status(401).entity(" please provide medicine name in Thai").build();
+			return Response.status(400).entity(" please provide medicine name in Thai").build();
 		} else if (Med.getMedicinePrice() == null) {
 			return Response.status(401).entity(" please provide Price").build();
 		}
