@@ -107,7 +107,7 @@ public class DoctorService {
 	public Response deleteDoctor(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
-		boolean i = DoctorDao.DeleteByID(id);
+		boolean i = DoctorDao.deleteById(id);
 		if (i == true)
 			return Response.status(201).entity(" delete successfully").build();
 		else

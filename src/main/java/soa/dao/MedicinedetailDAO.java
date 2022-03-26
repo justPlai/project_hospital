@@ -80,7 +80,7 @@ public class MedicinedetailDAO {
 		return true;
 	}
 
-	public boolean deleteByID(int id) {
+	public boolean deleteById(int id) {
 		try {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();

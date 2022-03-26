@@ -137,7 +137,7 @@ public class HospitalService {
 		if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		} else {
-			boolean i = hospitalDAO.DeleteByID(id);
+			boolean i = hospitalDAO.deleteById(id);
 			if (i == true) {
 				
 				//CommonResponse responsePojo = new CommonResponse();
