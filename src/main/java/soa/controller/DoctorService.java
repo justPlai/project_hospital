@@ -32,7 +32,6 @@ public class DoctorService {
 	@Path("/doctors")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Doctor> getDoctors() {
-
 		return doctorDAO.getAllDoctor();
 	}
 	
