@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -72,9 +73,21 @@ public class DoctorService {
 	public Response updateDoctor(Doctor doc) throws IOException {
 		boolean i = doctorDAO.update(doc);
 		if (i == true)
-			return Response.status(201).entity(" create successfully").build();
+			return Response.status(201).entity(" edit successfully").build();
 		else
-			return Response.status(201).entity(" create fail").build();
+			return Response.status(201).entity(" edit fail").build();
+		
+	}
+	
+	@DELETE
+	@Path("/doctors")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response deleteDoctor(Doctor doc) throws IOException {
+		boolean i = doctorDAO.delete(doc);
+		if (i == true)
+			return Response.status(201).entity(" delete successfully").build();
+		else
+			return Response.status(201).entity(" delete fail").build();
 		
 	}
 
