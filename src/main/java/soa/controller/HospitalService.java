@@ -49,8 +49,16 @@ public class HospitalService {
 	@GET
 	@Path("/hospitals/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Hospital getDoctorById(@PathParam("param") int id) {
-		return hospitalDAO.findByID(id);
+	public Response getDoctorById(@PathParam("param") int id) {
+		HospitalResponse responsePojo = new HospitalResponse();
+		responsePojo.setStatus("200");
+		responsePojo.setMsg("ok");
+		// ObjectMapper a = new ObjectMapper();
+
+		// String s = a.writeValueAsString(hospitalDAO.getAllHospital());
+		responsePojo.setResultid(hospitalDAO.findByID(id));
+		return Response.status(200).entity(responsePojo).build();
+		//return hospitalDAO.findByID(id);
 	}
 
 	@POST
@@ -67,13 +75,13 @@ public class HospitalService {
 		} else {
 			boolean i = hospitalDAO.addHospital(Hos);
 			if (i == true) {
-				CommonResponse responsePojo = new CommonResponse();
-				responsePojo.setStatus("201");
-				responsePojo.setMsg("ok");
-				responsePojo.setResult("create successfully");
+				/*CommonResponse responsePojo2 = new CommonResponse();
+				responsePojo2.setStatus("201");
+				responsePojo2.setMsg("ok");
+				responsePojo2.setResult("create successfully");
 
-				return Response.status(201).entity(responsePojo).build();
-				// return Response.status(201).entity(" create successfully").build();
+				return Response.status(201).entity(responsePojo2).build();*/
+				return Response.status(201).entity(" create successfully").build();
 			} else
 				return Response.status(201).entity(" create fail").build();
 		}
@@ -89,7 +97,13 @@ public class HospitalService {
 		} else {
 			boolean i = hospitalDAO.updateHospital(Hos);
 			if (i == true)
-				return Response.status(200).entity(" update successfully").build();
+			{
+				//CommonResponse responsePojo = new CommonResponse();
+				//responsePojo.setStatus("200");
+				//responsePojo.setMsg("ok");
+				//responsePojo.setResult("update successfully");
+				return Response.status(200).entity("update successfully").build();
+			}
 			else
 				return Response.status(200).entity(" update fail").build();
 		}
@@ -124,8 +138,15 @@ public class HospitalService {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		} else {
 			boolean i = hospitalDAO.DeleteByID(id);
-			if (i == true)
+			if (i == true) {
+				
+				//CommonResponse responsePojo = new CommonResponse();
+				//responsePojo.setStatus("200");
+				//responsePojo.setMsg("ok");
+				//responsePojo.setResult("delete successfully");
+				//return Response.status(200).entity(responsePojo).build();
 				return Response.status(200).entity(" delete successfully").build();
+			}
 			else
 				return Response.status(200).entity(" delete fail").build();
 		}

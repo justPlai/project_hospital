@@ -9,6 +9,15 @@ public class HospitalResponse {
 	private String status;
 	private String msg;
 	private ArrayList<Hospital> result;
+	private Hospital resultid;
+	
+	public Hospital getResultid() {
+		return resultid;
+	}
+
+	public void setResultid(Hospital resultid) {
+		this.resultid = resultid;
+	}
 
 	public String getStatus() {
 		return status;
