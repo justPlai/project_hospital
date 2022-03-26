@@ -1,23 +1,14 @@
-package soa.response;
+package soa.responsebyid;
 
 import java.util.ArrayList;
 
 import soa.model.Hospital;
+import soa.model.Medicinedetail;
 
-public class HospitalResponse {
-
+public class MedicinedetailIdResponse {
 	private String status;
 	private String msg;
-	private ArrayList<Hospital> result;
-	/*private Hospital resultid;
-	
-	public Hospital getResultid() {
-		return resultid;
-	}
-
-	public void setResultid(Hospital resultid) {
-		this.resultid = resultid;
-	}*/
+	private Medicinedetail result;
 
 	public String getStatus() {
 		return status;
@@ -27,7 +18,7 @@ public class HospitalResponse {
 		this.status = status;
 	}
 
-	public ArrayList<Hospital> getResult() {
+	public Medicinedetail getResult() {
 		return result;
 	}
 
@@ -39,7 +30,7 @@ public class HospitalResponse {
 		this.msg = msg;
 	}
 
-	public void setResult(ArrayList<Hospital> result) {
+	public void setResult(Medicinedetail result) {
 		this.result = result;
 
 	}

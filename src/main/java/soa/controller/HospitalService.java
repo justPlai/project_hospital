@@ -23,6 +23,7 @@ import soa.model.Doctor;
 import soa.model.Hospital;
 import soa.response.CommonResponse;
 import soa.response.HospitalResponse;
+import soa.responsebyid.HospitalIdResponse;
 
 @Path("/services")
 public class HospitalService {
@@ -50,15 +51,19 @@ public class HospitalService {
 	@Path("/hospitals/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDoctorById(@PathParam("param") int id) {
-		HospitalResponse responsePojo = new HospitalResponse();
-		responsePojo.setStatus("200");
-		responsePojo.setMsg("ok");
-		// ObjectMapper a = new ObjectMapper();
-
-		// String s = a.writeValueAsString(hospitalDAO.getAllHospital());
-		responsePojo.setResultid(hospitalDAO.findByID(id));
-		return Response.status(200).entity(responsePojo).build();
-		//return hospitalDAO.findByID(id);
+		Hospital h = hospitalDAO.findByID(id);
+		if(h==null)
+		{
+			return Response.status(401).entity(" Invalid Hospital id").build();
+		}
+		else
+		{
+			HospitalIdResponse responsePojo = new HospitalIdResponse();
+			responsePojo.setStatus("200");
+			responsePojo.setMsg("ok");
+			responsePojo.setResult(hospitalDAO.findByID(id));
+			return Response.status(200).entity(responsePojo).build();
+		}
 	}
 
 	@POST
@@ -75,12 +80,12 @@ public class HospitalService {
 		} else {
 			boolean i = hospitalDAO.addHospital(Hos);
 			if (i == true) {
-				/*CommonResponse responsePojo2 = new CommonResponse();
-				responsePojo2.setStatus("201");
-				responsePojo2.setMsg("ok");
-				responsePojo2.setResult("create successfully");
+				//CommonResponse responsePojo2 = new CommonResponse();
+				//responsePojo2.setStatus("201");
+				//responsePojo2.setMsg("ok");
+				//responsePojo2.setResult("create successfully");
 
-				return Response.status(201).entity(responsePojo2).build();*/
+				//return Response.status(201).entity(responsePojo2).build();
 				return Response.status(201).entity(" create successfully").build();
 			} else
 				return Response.status(201).entity(" create fail").build();

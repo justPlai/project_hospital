@@ -21,17 +21,23 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import soa.dao.DoctorDAO;
 import soa.dao.HospitalDAO;
+import soa.dao.MedicineDAO;
 import soa.dao.SessionUtil;
 import soa.model.Doctor;
 import soa.model.Hospital;
+import soa.model.Medicine;
 import soa.response.DoctorResponse;
 import soa.response.HospitalResponse;
+import soa.responsebyid.DoctorIdResponse;
+import soa.responsebyid.HospitalIdResponse;
 
 @Path("/services")
 public class DoctorService {
 
 	DoctorDAO DoctorDao = new DoctorDAO();
-
+	HospitalDAO hospitalDAO = new HospitalDAO();
+	MedicineDAO MedDao = new MedicineDAO();
+	
 	@GET
 	@Path("/doctors")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -47,6 +53,25 @@ public class DoctorService {
 		responsePojo.setResult(DoctorDao.getAllDoctor());
 
 		return Response.status(200).entity(responsePojo).build();
+	}
+	
+	@GET
+	@Path("/doctors/{param}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDoctorById(@PathParam("param") int id) {
+		Doctor d = DoctorDao.findById(id);
+		if(d==null)
+		{
+			return Response.status(401).entity(" Invalid Doctor id").build();
+		}
+		else
+		{
+			DoctorIdResponse responsePojo = new DoctorIdResponse();
+			responsePojo.setStatus("200");
+			responsePojo.setMsg("ok");
+			responsePojo.setResult(DoctorDao.findById(id));
+			return Response.status(200).entity(responsePojo).build();
+		}
 	}
 
 	@POST
@@ -92,7 +117,16 @@ public class DoctorService {
 	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor Doctor) throws JsonGenerationException, JsonMappingException, IOException {
-
+		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
+		if(D==null)
+		{
+			return Response.status(201).entity(" Invalid Doctor id").build();
+		}
+		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
+		if(h==null)
+		{
+			return Response.status(201).entity(" Invalid Hospital id").build();
+		}
 		boolean i = DoctorDao.updateDoctor(Doctor);
 		if (i == true)
 			return Response.status(201).entity(" update successfully").build();
@@ -106,7 +140,11 @@ public class DoctorService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteDoctor(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
-
+		Doctor D = DoctorDao.findById(id);
+		if(D==null)
+		{
+			return Response.status(201).entity(" Invalid Doctor id").build();
+		}
 		boolean i = DoctorDao.deleteById(id);
 		if (i == true)
 			return Response.status(201).entity(" delete successfully").build();
