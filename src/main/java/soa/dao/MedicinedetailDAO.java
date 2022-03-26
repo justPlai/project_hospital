@@ -21,6 +21,18 @@ public class MedicinedetailDAO {
 		session.close();
 		return Medicinedetail;
 	}
+	
+	public Medicinedetail findById(int id) {
+		Session session = SessionUtil.getSession();
+		Query query = session.createQuery("from Medicinedetail where medicineDetailId =" + id);
+		ArrayList<Medicinedetail> medicinedetail = (ArrayList<Medicinedetail>) query.list();
+		session.close();
+		if (medicinedetail.isEmpty()) {
+			return null;
+		} else {
+			return medicinedetail.get(0);
+		}
+	}
 
 	public boolean addMedicinedetail(Medicinedetail h) {
 
@@ -68,7 +80,7 @@ public class MedicinedetailDAO {
 		return true;
 	}
 
-	public boolean DeleteByID(int id) {
+	public boolean deleteByID(int id) {
 		try {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();

@@ -9,6 +9,7 @@ import org.hibernate.Query;
 
 import soa.model.Hospital;
 import soa.model.Medicine;
+import soa.model.Medicine;
 
 public class MedicineDAO {
 
@@ -18,6 +19,18 @@ public class MedicineDAO {
 		ArrayList<Medicine> medicine = (ArrayList<Medicine>) query.list();
 		session.close();
 		return medicine;
+	}
+	
+	public Medicine findById(int id) {
+		Session session = SessionUtil.getSession();
+		Query query = session.createQuery("from Medicine where medicineId =" + id);
+		ArrayList<Medicine> medicine = (ArrayList<Medicine>) query.list();
+		session.close();
+		if (medicine.isEmpty()) {
+			return null;
+		} else {
+			return medicine.get(0);
+		}
 	}
 
 	public boolean addMedicine(Medicine h) {
@@ -67,7 +80,7 @@ public class MedicineDAO {
 		return true;
 	}
 
-	public boolean DeleteByID(int id) {
+	public boolean deleteById(int id) {
 		try {
 			Session session = SessionUtil.getSession();
 			Transaction tx = session.beginTransaction();
