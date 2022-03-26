@@ -53,4 +53,44 @@ public class HospitalDAO {
 		return true;
 	}
 
+	public boolean update(Hospital hos) {
+		try {
+			Session session = SessionUtil.getSession();
+
+			Transaction tx = session.beginTransaction();
+
+			session.saveOrUpdate(hos);
+
+			tx.commit();
+
+			session.close();
+		} catch (TransactionException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+		return true;
+	}
+
+	public boolean delete(Hospital hos) {
+		try {
+			Session session = SessionUtil.getSession();
+
+			Transaction tx = session.beginTransaction();
+
+			session.delete(hos);
+
+			tx.commit();
+
+			session.close();
+		} catch (TransactionException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+		return true;
+	}
+
 }
