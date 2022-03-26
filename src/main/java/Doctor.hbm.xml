@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 26, 2022, 5:09:21 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="soa_hospital" name="soa.model.Doctor" optimistic-lock="none" table="doctor">
+        <id name="doctorId" type="java.lang.Integer">
+            <column name="doctor_id"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="soa.model.Hospital" fetch="select" name="hospital" lazy="false">
+            <column name="hospital_id" not-null="true"/>
+        </many-to-one>
+        <property name="doctorFirstname" type="string">
+            <column length="50" name="doctor_firstname" not-null="true"/>
+        </property>
+        <property name="doctorLastname" type="string">
+            <column length="50" name="doctor_lastname" not-null="true"/>
+        </property>
+        <property name="doctorPhonenumber" type="string">
+            <column length="10" name="doctor_phonenumber"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="medicinedetails" optimistic-lock="true" sort="unsorted" table="medicinedetail">
+            <key on-delete="noaction">
+                <column name="doctor_id" not-null="true"/>
+            </key>
+            <one-to-many class="soa.model.Medicinedetail"/>
+        </set>
+    </class>
+</hibernate-mapping>
