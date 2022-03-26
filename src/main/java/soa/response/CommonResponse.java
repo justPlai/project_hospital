@@ -2,33 +2,33 @@ package soa.response;
 
 public class CommonResponse {
 
-private String status;
+	private String status;
 
-private String result;
+	private String result;
 
-private String msg;
+	private String msg;
 
-public String getStatus() {
-return status;
-}
+	public String getStatus() {
+		return status;
+	}
 
-public void setStatus(String status) {
-this.status = status;
-}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-public String getResult() {
-return result;
-}
+	public String getResult() {
+		return result;
+	}
 
-public void setResult(String result) {
-this.result = result;
-}
+	public void setResult(String result) {
+		this.result = result;
+	}
 
-public String getMsg() {
-return msg;
-}
+	public String getMsg() {
+		return msg;
+	}
 
-public void setMsg(String msg) {
-this.msg = msg;
-}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 }

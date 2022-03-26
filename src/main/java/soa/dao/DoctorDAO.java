@@ -11,32 +11,30 @@ import soa.model.Hospital;
 
 import org.hibernate.Query;
 
-		
 public class DoctorDAO {
-	
-	public ArrayList<Doctor> getAllDoctor(){
-		 Session session = SessionUtil.getSession(); 
-		 Query query = session.createQuery("from Doctor");
-		 ArrayList<Doctor> doctor =  (ArrayList<Doctor>) query.list();
-		 session.close();
-		 return doctor ;
-	}	
+
+	public ArrayList<Doctor> getAllDoctor() {
+		Session session = SessionUtil.getSession();
+		Query query = session.createQuery("from Doctor");
+		ArrayList<Doctor> doctor = (ArrayList<Doctor>) query.list();
+		session.close();
+		return doctor;
+	}
+
 	public Doctor findByID(int id) {
 
 		Session session = SessionUtil.getSession();
 		Query query = session.createQuery("from Doctor where doctorId =" + id);
 		ArrayList<Doctor> Doctor = (ArrayList<Doctor>) query.list();
 		session.close();
-		if(Doctor.isEmpty())
-		{
+		if (Doctor.isEmpty()) {
 			return null;
-		}
-		else
-		{
-		return Doctor.get(0);
+		} else {
+			return Doctor.get(0);
 		}
 
 	}
+
 	public boolean addDoctor(Doctor doc) {
 
 		try {
@@ -61,7 +59,6 @@ public class DoctorDAO {
 	}
 
 	public boolean updateDoctor(Doctor d) {
-
 
 		try {
 			Session session = SessionUtil.getSession();
@@ -101,21 +98,20 @@ public class DoctorDAO {
 		}
 
 		return true;
-	} 
+	}
+
 	public boolean DeleteByID(int id) {
 		try {
-		Session session = SessionUtil.getSession();
-		Transaction tx = session.beginTransaction();
+			Session session = SessionUtil.getSession();
+			Transaction tx = session.beginTransaction();
 
-		Query query = session.createQuery("delete from Doctor where doctorId =" + id);
-		int result = query.executeUpdate();
-		//ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
-		
+			Query query = session.createQuery("delete from Doctor where doctorId =" + id);
+			int result = query.executeUpdate();
+			// ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
 
-		tx.commit();
-		session.close();
-		}
-		catch (TransactionException e) {
+			tx.commit();
+			session.close();
+		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
 
@@ -123,6 +119,5 @@ public class DoctorDAO {
 		return true;
 
 	}
-	
 
 }

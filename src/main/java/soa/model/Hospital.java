@@ -15,7 +15,7 @@ public class Hospital implements java.io.Serializable {
 	private String hospitalName;
 	private String hospitalLocation;
 	private String hospitalPhonenumber;
-	
+
 	@JsonIgnore
 	private Set doctors = new HashSet(0);
 

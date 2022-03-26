@@ -1,6 +1,5 @@
 package soa.controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -26,40 +25,34 @@ import soa.model.Medicine;
 
 @Path("/services")
 
-public class MedicineService { 
-	
-	MedicineDAO MedDao = new MedicineDAO();  
-   @GET 
-   @Path("/medicines") 
-   @Produces(MediaType.APPLICATION_JSON) 
+public class MedicineService {
 
-   public List<Medicine> getUsers(){ 
-	
-      return MedDao.getAllMedicine();
-      }  
-   	
-   	@POST
+	MedicineDAO MedDao = new MedicineDAO();
+
+	@GET
+	@Path("/medicines")
+	@Produces(MediaType.APPLICATION_JSON)
+
+	public List<Medicine> getUsers() {
+
+		return MedDao.getAllMedicine();
+	}
+
+	@POST
 	@Path("/medicines")
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createMedicine(Medicine Med) throws IOException {
-   		
-   		if(Med.getMedicineDescription()==null)
-   		{
-   			return Response.status(401).entity(" please provide Description").build();
-   		}
-   		else if(Med.getMedicineEnglish()==null)
-   		{
-   			return Response.status(401).entity(" please provide medicine name in English").build();
-   		}
-   		else if(Med.getMedicineThai()==null)
-   		{
-   			return Response.status(401).entity(" please provide medicine name in Thai").build();
-   		}
-   		else if(Med.getMedicinePrice()==null)
-   		{
-   			return Response.status(401).entity(" please provide Price").build();
-   		}
+
+		if (Med.getMedicineDescription() == null) {
+			return Response.status(401).entity(" please provide Description").build();
+		} else if (Med.getMedicineEnglish() == null) {
+			return Response.status(401).entity(" please provide medicine name in English").build();
+		} else if (Med.getMedicineThai() == null) {
+			return Response.status(401).entity(" please provide medicine name in Thai").build();
+		} else if (Med.getMedicinePrice() == null) {
+			return Response.status(401).entity(" please provide Price").build();
+		}
 		boolean i = MedDao.addMedicine(Med);
 		if (i == true)
 			return Response.status(201).entity(" create successfully").build();
@@ -67,34 +60,31 @@ public class MedicineService {
 			return Response.status(201).entity(" create fail").build();
 
 	}
- 	@PUT
+
+	@PUT
 	@Path("/medicines")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateMedicine(Medicine Doctor) throws  JsonGenerationException, 
-	JsonMappingException, IOException 
-	 {	
-	   		
-			boolean i = MedDao.updateMedicine(Doctor);
-			if (i == true)
-				return Response.status(201).entity(" update successfully").build();
-			else
-				return Response.status(201).entity(" update fail").build();
-			
-		}
-	   	
-	   
-	   	@DELETE
-		@Path("/medicines/{id}")
-		@Consumes(MediaType.APPLICATION_JSON)
-		public Response deleteMedicine(@PathParam("id") int id) throws  JsonGenerationException, 
-		JsonMappingException, IOException 
-	   	{	
-	   		
-			boolean i = MedDao.DeleteByID(id);
-			if (i == true)
-				return Response.status(201).entity(" delete successfully").build();
-			else
-				return Response.status(201).entity(" delete fail").build();
-			
-		}
+	public Response updateMedicine(Medicine Doctor) throws JsonGenerationException, JsonMappingException, IOException {
+
+		boolean i = MedDao.updateMedicine(Doctor);
+		if (i == true)
+			return Response.status(201).entity(" update successfully").build();
+		else
+			return Response.status(201).entity(" update fail").build();
+
+	}
+
+	@DELETE
+	@Path("/medicines/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response deleteMedicine(@PathParam("id") int id)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		boolean i = MedDao.DeleteByID(id);
+		if (i == true)
+			return Response.status(201).entity(" delete successfully").build();
+		else
+			return Response.status(201).entity(" delete fail").build();
+
+	}
 }

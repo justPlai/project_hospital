@@ -11,8 +11,7 @@ import soa.model.Doctor;
 import soa.model.Hospital;
 
 public class HospitalDAO {
-	
-	
+
 	public ArrayList<Hospital> getAllHospital() {
 		Session session = SessionUtil.getSession();
 		Query query = session.createQuery("from Hospital");
@@ -27,28 +26,24 @@ public class HospitalDAO {
 		Query query = session.createQuery("from Hospital where hospitalId =" + id);
 		ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
 		session.close();
-		if(hospital.isEmpty())
-		{
+		if (hospital.isEmpty()) {
 			return null;
-		}
-		else
-		{
-		return hospital.get(0);
+		} else {
+			return hospital.get(0);
 		}
 
 	}
-	
+
 	public boolean DeleteByID(int id) {
 		try {
-		Session session = SessionUtil.getSession();
-		Transaction tx = session.beginTransaction();
-		Hospital h = findByID(id);
-		session.delete(h);
+			Session session = SessionUtil.getSession();
+			Transaction tx = session.beginTransaction();
+			Hospital h = findByID(id);
+			session.delete(h);
 
-		tx.commit();
-		session.close();
-		}
-		catch (TransactionException e) {
+			tx.commit();
+			session.close();
+		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
 
@@ -119,7 +114,7 @@ public class HospitalDAO {
 
 		return true;
 	}
-	
+
 	public boolean updateHospital(Hospital h) {
 
 		try {
@@ -127,7 +122,7 @@ public class HospitalDAO {
 
 			Transaction tx = session.beginTransaction();
 
-			//tx.begin();
+			// tx.begin();
 
 			session.saveOrUpdate(h);
 
@@ -137,10 +132,10 @@ public class HospitalDAO {
 		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
-		
+
 		}
 
 		return true;
-	} 
+	}
 
 }

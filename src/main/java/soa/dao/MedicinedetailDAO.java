@@ -43,8 +43,8 @@ public class MedicinedetailDAO {
 		}
 
 		return true;
-	} 
-	
+	}
+
 	public boolean updateMedicinedetail(Medicinedetail M) {
 
 		try {
@@ -52,7 +52,7 @@ public class MedicinedetailDAO {
 
 			Transaction tx = session.beginTransaction();
 
-			//tx.begin();
+			// tx.begin();
 
 			session.saveOrUpdate(M);
 
@@ -62,31 +62,29 @@ public class MedicinedetailDAO {
 		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
-		
+
 		}
 
 		return true;
-	} 
+	}
+
 	public boolean DeleteByID(int id) {
 		try {
-		Session session = SessionUtil.getSession();
-		Transaction tx = session.beginTransaction();
+			Session session = SessionUtil.getSession();
+			Transaction tx = session.beginTransaction();
 
-		Query query = session.createQuery("delete from Medicinedetail where medicineDetailId =" + id);
-		int result = query.executeUpdate();
-		//ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
-		
+			Query query = session.createQuery("delete from Medicinedetail where medicineDetailId =" + id);
+			int result = query.executeUpdate();
+			// ArrayList<Hospital> hospital = (ArrayList<Hospital>) query.list();
 
-		tx.commit();
-		session.close();
-		}
-		catch (TransactionException e) {
+			tx.commit();
+			session.close();
+		} catch (TransactionException e) {
 			e.printStackTrace();
 			return false;
 
 		}
 		return true;
-
 
 	}
 

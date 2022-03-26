@@ -16,7 +16,7 @@ public class Doctor implements java.io.Serializable {
 	private String doctorFirstname;
 	private String doctorLastname;
 	private String doctorPhonenumber;
-	
+
 	@JsonIgnore
 	private Set medicinedetails = new HashSet(0);
 
