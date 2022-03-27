@@ -50,7 +50,7 @@ public class HospitalService {
 	@GET
 	@Path("/hospitals/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDoctorById(@PathParam("id") int id) {
+	public Response getHospitalById(@PathParam("id") int id) {
 		Hospital h = hospitalDAO.findByID(id);
 		if(h==null)
 		{
@@ -139,9 +139,10 @@ public class HospitalService {
 	public Response deleteHospital(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		Hospital h = hospitalDAO.findByID(id);
+		Hospital h2 = hospitalDAO.findByID(id);
 		if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
-		} else {
+		}  else {
 			boolean i = hospitalDAO.deleteById(id);
 			if (i == true) {
 				
