@@ -34,31 +34,29 @@ public class MedicinedetailService {
 	MedicinedetailDAO MedCDao = new MedicinedetailDAO();
 	DoctorDAO DoctorDao = new DoctorDAO();
 	MedicineDAO MedDao = new MedicineDAO();
-	
+
 	@GET
 	@Path("/medicinedetails")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsers() throws JsonGenerationException, JsonMappingException, IOException{
+	public Response getUsers() throws JsonGenerationException, JsonMappingException, IOException {
 
 		MedicinedetailResponse responsePojo = new MedicinedetailResponse();
 		responsePojo.setStatus("200");
 		responsePojo.setMsg("ok");
-		
+
 		responsePojo.setResult(MedCDao.getAllMedicinedetail());
 		return Response.status(200).entity(responsePojo).build();
-		//return MedCDao.getAllMedicinedetail();
+		// return MedCDao.getAllMedicinedetail();
 	}
+
 	@GET
 	@Path("/medicinedetails/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getMedicinedetailById(@PathParam("id") int id) {
 		Medicinedetail M = MedCDao.findById(id);
-		if(M==null)
-		{
+		if (M == null) {
 			return Response.status(401).entity(" Invalid Medicinedetail id").build();
-		}
-		else
-		{
+		} else {
 			MedicinedetailIdResponse responsePojo = new MedicinedetailIdResponse();
 			responsePojo.setStatus("200");
 			responsePojo.setMsg("ok");
@@ -66,13 +64,14 @@ public class MedicinedetailService {
 			return Response.status(200).entity(responsePojo).build();
 		}
 	}
+
 	@POST
 	@Path("/medicinedetails")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
 		Doctor d = DoctorDao.findById(MedcDao.getDoctor().getDoctorId());
 		Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
-		
+
 		if (MedcDao.getDoctor() == null) {
 			return Response.status(400).entity(" please provide Doctor").build();
 		} else if (MedcDao.getMedicine() == null) {
@@ -81,15 +80,11 @@ public class MedicinedetailService {
 			return Response.status(400).entity(" please provide TotalPrice").build();
 		} else if (MedcDao.getMedicineAmount() == 0) {
 			return Response.status(400).entity(" please provide Amount").build();
-		}else if(d==null)
-		{
+		} else if (d == null) {
 			return Response.status(401).entity(" Invalid doctor id").build();
-		}
-		else if(Med==null)
-		{
-			return Response.status(401).entity(" Invalid Medicine id").build();			
-		}
-			else {
+		} else if (Med == null) {
+			return Response.status(401).entity(" Invalid Medicine id").build();
+		} else {
 			boolean i = MedCDao.addMedicinedetail(MedcDao);
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
@@ -105,24 +100,21 @@ public class MedicinedetailService {
 	public Response updateMedicinedetail(Medicinedetail medicineDetail)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		Medicinedetail medc = MedCDao.findById(medicineDetail.getMedicineDetailId());
-		if(medc==null)
-		{
+		if (medc == null) {
 			return Response.status(401).entity("Invalid Medicinedetails id").build();
 		}
 		Doctor d = DoctorDao.findById(medicineDetail.getDoctor().getDoctorId());
-		if(d==null)
-		{
+		if (d == null) {
 			return Response.status(401).entity("Invalid doctor id").build();
 		}
 		Medicine Med = MedDao.findById(medicineDetail.getMedicine().getMedicineId());
-		if(Med==null)
-		{
+		if (Med == null) {
 			return Response.status(401).entity("Invalid Medicine id").build();
 		}
-		if(medicineDetail.getMedicineAmount() == 0) {
+		if (medicineDetail.getMedicineAmount() == 0) {
 			medicineDetail.setMedicineAmount(medc.getMedicineAmount());
 		}
-		if(medicineDetail.getMedicineTotalPrice() == null) {
+		if (medicineDetail.getMedicineTotalPrice() == null) {
 			medicineDetail.setMedicineTotalPrice(medc.getMedicineTotalPrice());
 		}
 		boolean i = MedCDao.updateMedicinedetail(medicineDetail);
@@ -139,8 +131,7 @@ public class MedicinedetailService {
 	public Response deleteMedicinedetail(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		Medicinedetail Med = MedCDao.findById(id);
-		if(Med==null)
-		{
+		if (Med == null) {
 			return Response.status(401).entity(" Invalid Medicinedetails id").build();
 		}
 		boolean i = MedCDao.deleteById(id);
