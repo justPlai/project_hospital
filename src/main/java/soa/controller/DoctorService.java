@@ -120,37 +120,31 @@ public class DoctorService {
 	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor Doctor) throws JsonGenerationException, JsonMappingException, IOException {
-		
-		if (Doctor.getDoctorId() == null) {
-			return Response.status(400).entity(" please provide DoctorId").build();
-		} 
-		else if (Doctor.getHospital()== null) {
-			return Response.status(400).entity(" please provide HospitalId").build();
-		} 
+		 
 		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
 		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
-		if (Doctor.getDoctorFirstname() == null) {
-			return Response.status(400).entity(" please provide Firstname").build();
-		} else if (Doctor.getDoctorLastname() == null) {
-			return Response.status(400).entity(" please provide Lastname").build();
-		} else if (Doctor.getDoctorPhonenumber() == null) {
-			return Response.status(400).entity(" please provide Phonenumber").build();
-		} else if (Doctor.getHospital() == null) {
-			return Response.status(400).entity(" please provide Hospital").build();
-		}else if(h==null) {
+		if(h==null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		}
 		else if(D==null)
 		{
 			return Response.status(401).entity(" Invalid Doctor id").build();
-		}else {
+		}
+		if (Doctor.getDoctorFirstname() == null) {
+			Doctor.setDoctorFirstname(D.getDoctorFirstname());
+		}
+		if (Doctor.getDoctorLastname() == null) {
+			Doctor.setDoctorLastname(D.getDoctorLastname());
+		}
+		if (Doctor.getDoctorPhonenumber() == null) {
+			Doctor.setDoctorPhonenumber(D.getDoctorPhonenumber());
+		}
 		boolean i = DoctorDao.updateDoctor(Doctor);
 		if (i == true)
 			return Response.status(200).entity(" update successfully").build();
 		else
 			return Response.status(400).entity(" update fail").build();
 
-		}
 	}
 
 	@DELETE

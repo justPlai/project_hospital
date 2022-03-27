@@ -97,31 +97,33 @@ public class HospitalService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateHospital(Hospital Hos) throws JsonGenerationException, JsonMappingException, IOException {
 		//Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
-		if (Hos.getHospitalId() == null) {
-			return Response.status(400).entity(" please provide HospitalId").build();
-		}
 		Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
-		if (Hos.getHospitalLocation() == null) {
-			return Response.status(400).entity(" please provide Location").build();
-		} else if (Hos.getHospitalName() == null) {
-			return Response.status(400).entity(" please provide Name").build();
-		} else if (Hos.getHospitalPhonenumber() == null) {
-			return Response.status(400).entity(" please provide Phonenumber").build();
-		}else if (h == null) {
+		if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
-		} else {
-			boolean i = hospitalDAO.updateHospital(Hos);
-			if (i == true)
-			{
+		}
+		if(Hos.getHospitalLocation() == null)
+		{
+			Hos.setHospitalLocation(h.getHospitalLocation());
+		}
+		if(Hos.getHospitalName() ==null)
+		{
+			Hos.setHospitalName(h.getHospitalName());
+		}
+		if(Hos.getHospitalPhonenumber() == null)
+		{
+			Hos.setHospitalPhonenumber(h.getHospitalPhonenumber());
+		}
+		boolean i = hospitalDAO.updateHospital(Hos);
+		if (i == true)
+		{
 				//CommonResponse responsePojo = new CommonResponse();
 				//responsePojo.setStatus("200");
 				//responsePojo.setMsg("ok");
 				//responsePojo.setResult("update successfully");
-				return Response.status(200).entity("update successfully").build();
-			}
-			else
-				return Response.status(400).entity(" update fail").build();
+			return Response.status(200).entity("update successfully").build();
 		}
+		else
+			return Response.status(400).entity(" update fail").build();
 	}
 
 //	@PUT
