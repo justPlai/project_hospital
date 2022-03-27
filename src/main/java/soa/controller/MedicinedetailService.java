@@ -89,7 +89,7 @@ public class MedicinedetailService {
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
 			else
-				return Response.status(201).entity(" create fail").build();
+				return Response.status(400).entity(" create fail").build();
 		}
 
 	}
@@ -121,7 +121,7 @@ public class MedicinedetailService {
 		if (i == true)
 			return Response.status(200).entity(" update successfully").build();
 		else
-			return Response.status(201).entity(" update fail").build();
+			return Response.status(400).entity(" update fail").build();
 
 	}
 
@@ -138,7 +138,7 @@ public class MedicinedetailService {
 		if (i == true)
 			return Response.status(200).entity(" delete successfully").build();
 		else
-			return Response.status(201).entity(" delete fail").build();
+			return Response.status(400).entity(" delete fail").build();
 
 	}
 
