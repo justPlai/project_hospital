@@ -132,7 +132,7 @@ public class DoctorService {
 		}
 		boolean i = DoctorDao.updateDoctor(Doctor);
 		if (i == true)
-			return Response.status(201).entity(" update successfully").build();
+			return Response.status(200).entity(" update successfully").build();
 		else
 			return Response.status(201).entity(" update fail").build();
 
@@ -150,7 +150,7 @@ public class DoctorService {
 		}
 		boolean i = DoctorDao.deleteById(id);
 		if (i == true)
-			return Response.status(201).entity(" delete successfully").build();
+			return Response.status(200).entity(" delete successfully").build();
 		else
 			return Response.status(201).entity(" delete fail").build();
 

@@ -51,7 +51,7 @@ public class MedicinedetailService {
 	@GET
 	@Path("/medicinedetails/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDoctorById(@PathParam("id") int id) {
+	public Response getMedicinedetailById(@PathParam("id") int id) {
 		Medicinedetail M = MedCDao.findById(id);
 		if(M==null)
 		{
@@ -121,7 +121,7 @@ public class MedicinedetailService {
 		}
 		boolean i = MedCDao.updateMedicinedetail(MedcDao);
 		if (i == true)
-			return Response.status(201).entity(" update successfully").build();
+			return Response.status(200).entity(" update successfully").build();
 		else
 			return Response.status(201).entity(" update fail").build();
 
@@ -139,7 +139,7 @@ public class MedicinedetailService {
 		}
 		boolean i = MedCDao.deleteById(id);
 		if (i == true)
-			return Response.status(201).entity(" delete successfully").build();
+			return Response.status(200).entity(" delete successfully").build();
 		else
 			return Response.status(201).entity(" delete fail").build();
 

@@ -33,7 +33,6 @@ public class HospitalDAO {
 		}
 
 	}
-
 	public boolean deleteById(int id) {
 		try {
 			Session session = SessionUtil.getSession();
