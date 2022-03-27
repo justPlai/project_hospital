@@ -121,21 +121,29 @@ public class DoctorService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor Doctor) throws JsonGenerationException, JsonMappingException, IOException {
 		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
-		if(D==null)
-		{
-			return Response.status(401).entity(" Invalid Doctor id").build();
-		}
 		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
-		if(h==null)
-		{
+		if (Doctor.getDoctorFirstname() == null) {
+			return Response.status(400).entity(" please provide Firstname").build();
+		} else if (Doctor.getDoctorLastname() == null) {
+			return Response.status(400).entity(" please provide Lastname").build();
+		} else if (Doctor.getDoctorPhonenumber() == null) {
+			return Response.status(400).entity(" please provide Phonenumber").build();
+		} else if (Doctor.getHospital() == null) {
+			return Response.status(400).entity(" please provide Hospital").build();
+		}else if(h==null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		}
+		else if(D==null)
+		{
+			return Response.status(401).entity(" Invalid Doctor id").build();
+		}else {
 		boolean i = DoctorDao.updateDoctor(Doctor);
 		if (i == true)
 			return Response.status(200).entity(" update successfully").build();
 		else
 			return Response.status(201).entity(" update fail").build();
 
+		}
 	}
 
 	@DELETE
