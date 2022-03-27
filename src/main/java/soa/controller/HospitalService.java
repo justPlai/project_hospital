@@ -97,7 +97,13 @@ public class HospitalService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateHospital(Hospital Hos) throws JsonGenerationException, JsonMappingException, IOException {
 		Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
-		if (h == null) {
+		if (Hos.getHospitalLocation() == null) {
+			return Response.status(400).entity(" please provide Location").build();
+		} else if (Hos.getHospitalName() == null) {
+			return Response.status(400).entity(" please provide Name").build();
+		} else if (Hos.getHospitalPhonenumber() == null) {
+			return Response.status(400).entity(" please provide Phonenumber").build();
+		}else if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
 		} else {
 			boolean i = hospitalDAO.updateHospital(Hos);
