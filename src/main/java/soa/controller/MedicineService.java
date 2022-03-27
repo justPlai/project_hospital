@@ -73,13 +73,13 @@ public class MedicineService {
 		} else if (Med.getMedicineThai() == null) {
 			return Response.status(400).entity(" please provide medicine name in Thai").build();
 		} else if (Med.getMedicinePrice() == null) {
-			return Response.status(401).entity(" please provide Price").build();
+			return Response.status(400).entity(" please provide Price").build();
 		}
 		boolean i = MedDao.addMedicine(Med);
 		if (i == true)
 			return Response.status(201).entity(" create successfully").build();
 		else
-			return Response.status(201).entity(" create fail").build();
+			return Response.status(400).entity(" create fail").build();
 
 	}
 
@@ -102,7 +102,7 @@ public class MedicineService {
 			if (i == true)
 				return Response.status(200).entity(" update successfully").build();
 			else
-				return Response.status(201).entity(" update fail").build();
+				return Response.status(400).entity(" update fail").build();
 		}
 
 	}
@@ -120,7 +120,7 @@ public class MedicineService {
 			if (i == true)
 				return Response.status(200).entity(" delete successfully").build();
 			else
-				return Response.status(201).entity(" delete fail").build();
+				return Response.status(400).entity(" delete fail").build();
 		}
 
 	}
