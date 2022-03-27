@@ -27,7 +27,6 @@ import soa.response.MedicineResponse;
 import soa.responsebyid.MedicineIdResponse;
 import soa.responsebyid.MedicinedetailIdResponse;
 
-
 @Path("/services")
 
 public class MedicineService {
@@ -41,21 +40,19 @@ public class MedicineService {
 		MedicineResponse responsePojo = new MedicineResponse();
 		responsePojo.setStatus("200");
 		responsePojo.setMsg("ok");
-		
+
 		responsePojo.setResult(MedDao.getAllMedicine());
 		return Response.status(200).entity(responsePojo).build();
 	}
+
 	@GET
 	@Path("/medicines/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getMedicineById(@PathParam("id") int id) {
 		Medicine M = MedDao.findById(id);
-		if(M==null)
-		{
+		if (M == null) {
 			return Response.status(401).entity(" Invalid Medicine id").build();
-		}
-		else
-		{
+		} else {
 			MedicineIdResponse responsePojo = new MedicineIdResponse();
 			responsePojo.setStatus("200");
 			responsePojo.setMsg("ok");
@@ -63,6 +60,7 @@ public class MedicineService {
 			return Response.status(200).entity(responsePojo).build();
 		}
 	}
+
 	@POST
 	@Path("/medicines")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -88,17 +86,23 @@ public class MedicineService {
 	@PUT
 	@Path("/medicines")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateMedicine(Medicine medicine) throws JsonGenerationException, JsonMappingException, IOException {
+	public Response updateMedicine(Medicine medicine)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		Medicine M = MedDao.findById(medicine.getMedicineId());
 		if (M == null) {
 			return Response.status(401).entity(" Invalid Medicine id").build();
-		}
-		else {
-		boolean i = MedDao.updateMedicine(medicine);
-		if (i == true)
-			return Response.status(200).entity(" update successfully").build();
-		else
-			return Response.status(201).entity(" update fail").build();
+		} else {
+			if(medicine.getMedicinePrice() == null) {
+				medicine.setMedicinePrice(M.getMedicinePrice());
+			}
+			if(medicine.getMedicineDescription() == null) {
+				medicine.setMedicineDescription(M.getMedicineDescription());
+			}
+			boolean i = MedDao.updateMedicine(medicine);
+			if (i == true)
+				return Response.status(200).entity(" update successfully").build();
+			else
+				return Response.status(201).entity(" update fail").build();
 		}
 
 	}
@@ -111,13 +115,12 @@ public class MedicineService {
 		Medicine M = MedDao.findById(id);
 		if (M == null) {
 			return Response.status(401).entity(" Invalid Medicine id").build();
-		}
-		else {
-		boolean i = MedDao.deleteById(id);
-		if (i == true)
-			return Response.status(200).entity(" delete successfully").build();
-		else
-			return Response.status(201).entity(" delete fail").build();
+		} else {
+			boolean i = MedDao.deleteById(id);
+			if (i == true)
+				return Response.status(200).entity(" delete successfully").build();
+			else
+				return Response.status(201).entity(" delete fail").build();
 		}
 
 	}
