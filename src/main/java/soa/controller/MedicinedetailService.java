@@ -102,24 +102,30 @@ public class MedicinedetailService {
 	@PUT
 	@Path("/medicinedetails")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateMedicinedetail(Medicinedetail MedcDao)
+	public Response updateMedicinedetail(Medicinedetail medicineDetail)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		Medicinedetail medc = MedCDao.findById(MedcDao.getMedicineDetailId());
+		Medicinedetail medc = MedCDao.findById(medicineDetail.getMedicineDetailId());
 		if(medc==null)
 		{
 			return Response.status(401).entity("Invalid Medicinedetails id").build();
 		}
-		Doctor d = DoctorDao.findById(MedcDao.getDoctor().getDoctorId());
+		Doctor d = DoctorDao.findById(medicineDetail.getDoctor().getDoctorId());
 		if(d==null)
 		{
 			return Response.status(401).entity("Invalid doctor id").build();
 		}
-		Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
+		Medicine Med = MedDao.findById(medicineDetail.getMedicine().getMedicineId());
 		if(Med==null)
 		{
 			return Response.status(401).entity("Invalid Medicine id").build();
 		}
-		boolean i = MedCDao.updateMedicinedetail(MedcDao);
+		if(medicineDetail.getMedicineAmount() == 0) {
+			medicineDetail.setMedicineAmount(medc.getMedicineAmount());
+		}
+		if(medicineDetail.getMedicineTotalPrice() == null) {
+			medicineDetail.setMedicineTotalPrice(medc.getMedicineTotalPrice());
+		}
+		boolean i = MedCDao.updateMedicinedetail(medicineDetail);
 		if (i == true)
 			return Response.status(200).entity(" update successfully").build();
 		else
