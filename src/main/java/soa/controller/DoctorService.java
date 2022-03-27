@@ -112,7 +112,7 @@ public class DoctorService {
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
 			else
-				return Response.status(201).entity(" create fail").build();
+				return Response.status(400).entity(" create fail").build();
 		}
 	}
 
@@ -120,6 +120,13 @@ public class DoctorService {
 	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor Doctor) throws JsonGenerationException, JsonMappingException, IOException {
+		
+		if (Doctor.getDoctorId() == null) {
+			return Response.status(400).entity(" please provide DoctorId").build();
+		} 
+		else if (Doctor.getHospital()== null) {
+			return Response.status(400).entity(" please provide HospitalId").build();
+		} 
 		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
 		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
 		if (Doctor.getDoctorFirstname() == null) {
@@ -141,7 +148,7 @@ public class DoctorService {
 		if (i == true)
 			return Response.status(200).entity(" update successfully").build();
 		else
-			return Response.status(201).entity(" update fail").build();
+			return Response.status(400).entity(" update fail").build();
 
 		}
 	}
@@ -160,7 +167,7 @@ public class DoctorService {
 		if (i == true)
 			return Response.status(200).entity(" delete successfully").build();
 		else
-			return Response.status(201).entity(" delete fail").build();
+			return Response.status(400).entity(" delete fail").build();
 
 	}
 
