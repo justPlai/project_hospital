@@ -88,7 +88,7 @@ public class HospitalService {
 				//return Response.status(201).entity(responsePojo2).build();
 				return Response.status(201).entity(" create successfully").build();
 			} else
-				return Response.status(201).entity(" create fail").build();
+				return Response.status(400).entity(" create fail").build();
 		}
 	}
 
@@ -96,6 +96,10 @@ public class HospitalService {
 	@Path("/hospitals")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateHospital(Hospital Hos) throws JsonGenerationException, JsonMappingException, IOException {
+		//Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
+		if (Hos.getHospitalId() == null) {
+			return Response.status(400).entity(" please provide HospitalId").build();
+		}
 		Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
 		if (Hos.getHospitalLocation() == null) {
 			return Response.status(400).entity(" please provide Location").build();
@@ -116,7 +120,7 @@ public class HospitalService {
 				return Response.status(200).entity("update successfully").build();
 			}
 			else
-				return Response.status(200).entity(" update fail").build();
+				return Response.status(400).entity(" update fail").build();
 		}
 	}
 
@@ -160,7 +164,7 @@ public class HospitalService {
 				return Response.status(200).entity(" delete successfully").build();
 			}
 			else
-				return Response.status(200).entity(" delete fail").build();
+				return Response.status(400).entity(" delete fail").build();
 		}
 
 	}
