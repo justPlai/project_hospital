@@ -9,7 +9,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
-        	<mapping resource="Hospital.hbm.xml" />
+        <mapping resource="Hospital.hbm.xml" />
 		<mapping resource="Medicine.hbm.xml" />
 		<mapping resource="Medicinedetail.hbm.xml" />
 		<mapping resource="Doctor.hbm.xml" />
