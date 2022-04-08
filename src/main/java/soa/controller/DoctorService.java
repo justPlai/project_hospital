@@ -37,7 +37,7 @@ public class DoctorService {
 	DoctorDAO DoctorDao = new DoctorDAO();
 	HospitalDAO hospitalDAO = new HospitalDAO();
 	MedicineDAO MedDao = new MedicineDAO();
-	
+
 	@GET
 	@Path("/doctors")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -54,18 +54,15 @@ public class DoctorService {
 
 		return Response.status(200).entity(responsePojo).build();
 	}
-	
+
 	@GET
 	@Path("/doctors/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDoctorById(@PathParam("id") int id) {
 		Doctor d = DoctorDao.findById(id);
-		if(d==null)
-		{
+		if (d == null) {
 			return Response.status(401).entity(" Invalid Doctor id").build();
-		}
-		else
-		{
+		} else {
 			DoctorIdResponse responsePojo = new DoctorIdResponse();
 			responsePojo.setStatus("200");
 			responsePojo.setMsg("ok");
@@ -104,10 +101,9 @@ public class DoctorService {
 			return Response.status(400).entity(" please provide Phonenumber").build();
 		} else if (doc.getHospital() == null) {
 			return Response.status(400).entity(" please provide Hospital").build();
-		}else if(h==null) {
+		} else if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
-		}
-		else {
+		} else {
 			boolean i = DoctorDao.addDoctor(doc);
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
@@ -120,16 +116,20 @@ public class DoctorService {
 	@Path("/doctors")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateDoctor(Doctor Doctor) throws JsonGenerationException, JsonMappingException, IOException {
-		 
-		Doctor D = DoctorDao.findById(Doctor.getDoctorId());
-		Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
-		if(h==null) {
+
+		Doctor D = new Doctor();
+
+		if (Doctor.getHospital().getHospitalId() == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
+		} else {
+			Hospital h = hospitalDAO.findByID(Doctor.getHospital().getHospitalId());
 		}
-		else if(D==null)
-		{
+		if (Doctor.getDoctorId() == null) {
 			return Response.status(401).entity(" Invalid Doctor id").build();
+		} else {
+			D = DoctorDao.findById(Doctor.getDoctorId());
 		}
+
 		if (Doctor.getDoctorFirstname() == null) {
 			Doctor.setDoctorFirstname(D.getDoctorFirstname());
 		}
@@ -153,8 +153,7 @@ public class DoctorService {
 	public Response deleteDoctor(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		Doctor D = DoctorDao.findById(id);
-		if(D==null)
-		{
+		if (D == null) {
 			return Response.status(401).entity(" Invalid Doctor id").build();
 		}
 		boolean i = DoctorDao.deleteById(id);

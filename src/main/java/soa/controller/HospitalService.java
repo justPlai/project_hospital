@@ -52,12 +52,9 @@ public class HospitalService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getHospitalById(@PathParam("id") int id) {
 		Hospital h = hospitalDAO.findByID(id);
-		if(h==null)
-		{
+		if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
-		}
-		else
-		{
+		} else {
 			HospitalIdResponse responsePojo = new HospitalIdResponse();
 			responsePojo.setStatus("200");
 			responsePojo.setMsg("ok");
@@ -80,12 +77,12 @@ public class HospitalService {
 		} else {
 			boolean i = hospitalDAO.addHospital(Hos);
 			if (i == true) {
-				//CommonResponse responsePojo2 = new CommonResponse();
-				//responsePojo2.setStatus("201");
-				//responsePojo2.setMsg("ok");
-				//responsePojo2.setResult("create successfully");
+				// CommonResponse responsePojo2 = new CommonResponse();
+				// responsePojo2.setStatus("201");
+				// responsePojo2.setMsg("ok");
+				// responsePojo2.setResult("create successfully");
 
-				//return Response.status(201).entity(responsePojo2).build();
+				// return Response.status(201).entity(responsePojo2).build();
 				return Response.status(201).entity(" create successfully").build();
 			} else
 				return Response.status(400).entity(" create fail").build();
@@ -96,33 +93,30 @@ public class HospitalService {
 	@Path("/hospitals")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateHospital(Hospital Hos) throws JsonGenerationException, JsonMappingException, IOException {
-		//Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
-		Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
-		if (h == null) {
+		// Hospital h = hospitalDAO.findByID(Hos.getHospitalId());
+		Hospital h = new Hospital();
+		if (Hos.getHospitalId() == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
+		} else {
+			h = hospitalDAO.findByID(Hos.getHospitalId());
 		}
-		if(Hos.getHospitalLocation() == null)
-		{
+		if (Hos.getHospitalLocation() == null) {
 			Hos.setHospitalLocation(h.getHospitalLocation());
 		}
-		if(Hos.getHospitalName() ==null)
-		{
+		if (Hos.getHospitalName() == null) {
 			Hos.setHospitalName(h.getHospitalName());
 		}
-		if(Hos.getHospitalPhonenumber() == null)
-		{
+		if (Hos.getHospitalPhonenumber() == null) {
 			Hos.setHospitalPhonenumber(h.getHospitalPhonenumber());
 		}
 		boolean i = hospitalDAO.updateHospital(Hos);
-		if (i == true)
-		{
-				//CommonResponse responsePojo = new CommonResponse();
-				//responsePojo.setStatus("200");
-				//responsePojo.setMsg("ok");
-				//responsePojo.setResult("update successfully");
+		if (i == true) {
+			// CommonResponse responsePojo = new CommonResponse();
+			// responsePojo.setStatus("200");
+			// responsePojo.setMsg("ok");
+			// responsePojo.setResult("update successfully");
 			return Response.status(200).entity("update successfully").build();
-		}
-		else
+		} else
 			return Response.status(400).entity(" update fail").build();
 	}
 
@@ -151,21 +145,20 @@ public class HospitalService {
 	public Response deleteHospital(@PathParam("id") int id)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		Hospital h = hospitalDAO.findByID(id);
-		Hospital h2 = hospitalDAO.findByID(id);
+//		Hospital h2 = hospitalDAO.findByID(id);
 		if (h == null) {
 			return Response.status(401).entity(" Invalid Hospital id").build();
-		}  else {
+		} else {
 			boolean i = hospitalDAO.deleteById(id);
 			if (i == true) {
-				
-				//CommonResponse responsePojo = new CommonResponse();
-				//responsePojo.setStatus("200");
-				//responsePojo.setMsg("ok");
-				//responsePojo.setResult("delete successfully");
-				//return Response.status(200).entity(responsePojo).build();
+
+				// CommonResponse responsePojo = new CommonResponse();
+				// responsePojo.setStatus("200");
+				// responsePojo.setMsg("ok");
+				// responsePojo.setResult("delete successfully");
+				// return Response.status(200).entity(responsePojo).build();
 				return Response.status(200).entity(" delete successfully").build();
-			}
-			else
+			} else
 				return Response.status(400).entity(" delete fail").build();
 		}
 

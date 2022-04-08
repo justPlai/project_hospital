@@ -88,14 +88,19 @@ public class MedicineService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateMedicine(Medicine medicine)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		Medicine M = MedDao.findById(medicine.getMedicineId());
+		Medicine M = new Medicine();
+		if (medicine.getMedicineId() == null) {
+			return Response.status(401).entity(" Invalid Medicine id").build();
+		} else {
+			M = MedDao.findById(medicine.getMedicineId());
+		}
 		if (M == null) {
 			return Response.status(401).entity(" Invalid Medicine id").build();
 		} else {
-			if(medicine.getMedicinePrice() == null) {
+			if (medicine.getMedicinePrice() == null) {
 				medicine.setMedicinePrice(M.getMedicinePrice());
 			}
-			if(medicine.getMedicineDescription() == null) {
+			if (medicine.getMedicineDescription() == null) {
 				medicine.setMedicineDescription(M.getMedicineDescription());
 			}
 			boolean i = MedDao.updateMedicine(medicine);

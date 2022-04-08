@@ -117,7 +117,7 @@
 				<version>3.2.2</version>
 				<configuration>
 					<outputDirectory>webapps</outputDirectory>
-					<warName>hospital</warName>
+					<warName>hospitals</warName>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>

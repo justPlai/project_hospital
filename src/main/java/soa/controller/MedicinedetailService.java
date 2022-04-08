@@ -69,8 +69,6 @@ public class MedicinedetailService {
 	@Path("/medicinedetails")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addMedicinedetail(Medicinedetail MedcDao) throws IOException {
-		Doctor d = DoctorDao.findById(MedcDao.getDoctor().getDoctorId());
-		Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
 
 		if (MedcDao.getDoctor() == null) {
 			return Response.status(400).entity(" please provide Doctor").build();
@@ -80,11 +78,14 @@ public class MedicinedetailService {
 			return Response.status(400).entity(" please provide TotalPrice").build();
 		} else if (MedcDao.getMedicineAmount() == 0) {
 			return Response.status(400).entity(" please provide Amount").build();
-		} else if (d == null) {
+		} else if (MedcDao.getDoctor().getDoctorId() == null) {
 			return Response.status(401).entity(" Invalid doctor id").build();
-		} else if (Med == null) {
+		} else if (MedcDao.getMedicine().getMedicineId() == null) {
 			return Response.status(401).entity(" Invalid Medicine id").build();
 		} else {
+			Doctor d = DoctorDao.findById(MedcDao.getDoctor().getDoctorId());
+			Medicine Med = MedDao.findById(MedcDao.getMedicine().getMedicineId());
+
 			boolean i = MedCDao.addMedicinedetail(MedcDao);
 			if (i == true)
 				return Response.status(201).entity(" create successfully").build();
@@ -99,9 +100,12 @@ public class MedicinedetailService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateMedicinedetail(Medicinedetail medicineDetail)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		Medicinedetail medc = MedCDao.findById(medicineDetail.getMedicineDetailId());
-		if (medc == null) {
+		Medicinedetail medc = new Medicinedetail();
+
+		if (medicineDetail.getMedicineDetailId() == null) {
 			return Response.status(401).entity("Invalid Medicinedetails id").build();
+		} else {
+			medc = MedCDao.findById(medicineDetail.getMedicineDetailId());
 		}
 		Doctor d = DoctorDao.findById(medicineDetail.getDoctor().getDoctorId());
 		if (d == null) {
