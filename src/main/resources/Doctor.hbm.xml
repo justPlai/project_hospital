@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generated Mar 26, 2022, 9:28:10 PM by Hibernate Tools 5.5.7.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
-    <class catalog="soa_hospital" dynamic-insert="false" dynamic-update="false" mutable="true" name="soa.model.Doctor" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="doctor">
+    <class catalog="SOA65_01" dynamic-insert="false" dynamic-update="false" mutable="true" name="soa.model.Doctor" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="doctor">
         <id name="doctorId" type="java.lang.Integer">
             <column name="doctor_id"/>
             <generator class="identity"/>
