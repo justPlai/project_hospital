@@ -7,10 +7,10 @@
             <generator class="identity"/>
         </id>
         <property generated="never" lazy="false" name="hospitalName" optimistic-lock="true" type="string" unique="false">
-            <column length="80" name="hospital_name" not-null="true"/>
+            <column length="255" name="hospital_name" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="hospitalLocation" optimistic-lock="true" type="string" unique="false">
-            <column name="hospital_location"/>
+            <column length="255" name="hospital_location"/>
         </property>
         <property generated="never" lazy="false" name="hospitalPhonenumber" optimistic-lock="true" type="string" unique="false">
             <column length="10" name="hospital_phonenumber"/>

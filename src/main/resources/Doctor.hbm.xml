@@ -10,10 +10,10 @@
             <column name="hospital_id" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="doctorFirstname" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="doctor_firstname" not-null="true"/>
+            <column length="255" name="doctor_firstname" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="doctorLastname" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="doctor_lastname" not-null="true"/>
+            <column length="255" name="doctor_lastname" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="doctorPhonenumber" optimistic-lock="true" type="string" unique="false">
             <column length="10" name="doctor_phonenumber"/>

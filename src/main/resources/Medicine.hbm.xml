@@ -10,13 +10,13 @@
             <column length="50" name="medicine_english" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="medicineThai" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="medicine_thai" not-null="true"/>
+            <column length="255" name="medicine_thai" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="medicinePrice" optimistic-lock="true" type="java.lang.Float" unique="false">
             <column name="medicine_price" precision="12" scale="0"/>
         </property>
         <property generated="never" lazy="false" name="medicineDescription" optimistic-lock="true" type="string" unique="false">
-            <column name="medicine_description"/>
+            <column length="255" name="medicine_description"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="medicinedetails" optimistic-lock="true" sort="unsorted" table="medicinedetail">
             <key on-delete="noaction">

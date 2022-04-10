@@ -3,16 +3,20 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/SOA65_01</property>
-        <property name="hibernate.connection.username">SOA65_01</property>
-        <property name="hibernate.connection.password">SOA65_01</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        
-        <mapping resource="Hospital.hbm.xml" />
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/SOA65_01</property>
+		<property name="hibernate.connection.username">SOA65_01</property>
+		<property name="hibernate.connection.password">SOA65_01</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<property name="hibernate.connection.CharSet">utf8</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+		<property name="hibernate.connection.useUnicode">true</property>
+
+		<mapping resource="Hospital.hbm.xml" />
 		<mapping resource="Medicine.hbm.xml" />
 		<mapping resource="Medicinedetail.hbm.xml" />
 		<mapping resource="Doctor.hbm.xml" />
-    </session-factory>
+	</session-factory>
 </hibernate-configuration>
